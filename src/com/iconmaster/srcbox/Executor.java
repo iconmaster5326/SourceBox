@@ -149,13 +149,13 @@ public class Executor {
 				case ENDB:
 					if (!loopBegins.isEmpty()) {
 						if (loopBegins.peek().op == OpType.WHILE) {
-							if (toBool(f.getVar(op.args[0]))) {
+							if (toBool(f.getVar(loopBegins.peek().args[0]))) {
 								opn = code.indexOf(loopBegins.peek())+1;
 							} else {
 								loopBegins.pop();
 							}
 						} else if (loopBegins.peek().op == OpType.REP) {
-							if (!toBool(f.getVar(op.args[0]))) {
+							if (!toBool(f.getVar(loopBegins.peek().args[0]))) {
 								opn = code.indexOf(loopBegins.peek())+1;
 							} else {
 								loopBegins.pop();
