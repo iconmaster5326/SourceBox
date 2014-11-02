@@ -39,7 +39,6 @@ public class Executor {
 	
 	public Object execute(Function fn) {
 		ArrayList<Operation> code = fn.getCode();
-		boolean jumpOverElse = false;
 		
 		for (int opn=0;opn<code.size();opn++) {
 			Operation op = code.get(opn);
@@ -94,12 +93,6 @@ public class Executor {
 					}
 					f.putVar(op.args[0], getIndex(lv, indices));
 					break;
-				case RET:
-					return op.args.length==0?null:f.getVar(op.args[0]);
-				case BRK:
-					opn = code.indexOf(loopBegins.peek())+1;
-					loopBegins.pop();
-					break;
 				case DEF:
 					break;
 				case BEGIN:
@@ -113,55 +106,6 @@ public class Executor {
 				case NOP:
 					break;
 				case TYPE:
-					break;
-				case IF:
-					Object cond = f.getVar(op.args[0]);
-					if (toBool(cond)) {
-						jumpOverElse = true;
-					} else {
-						opn = jumpOver(opn, code);
-					}
-					break;
-				case ELSE:
-					if (jumpOverElse) {
-						opn = jumpOver(opn, code);
-						jumpOverElse = false;
-					} else {
-						
-					}
-					break;
-				case FORR:
-					break;
-				case FORE:
-					break;
-				case FORP:
-					break;
-				case WHILE:
-					if (toBool(f.getVar(op.args[0]))) {
-						loopBegins.push(op);
-					} else {
-						opn = jumpOver(opn, code);
-					}
-					break;
-				case REP:
-					loopBegins.push(op);
-					break;
-				case ENDB:
-					if (!loopBegins.isEmpty()) {
-						if (loopBegins.peek().op == OpType.WHILE) {
-							if (toBool(f.getVar(loopBegins.peek().args[0]))) {
-								opn = code.indexOf(loopBegins.peek())+1;
-							} else {
-								loopBegins.pop();
-							}
-						} else if (loopBegins.peek().op == OpType.REP) {
-							if (!toBool(f.getVar(loopBegins.peek().args[0]))) {
-								opn = code.indexOf(loopBegins.peek())+1;
-							} else {
-								loopBegins.pop();
-							}
-						}
-					}
 					break;
 				case ADD:
 					f.putVar(op.args[0], ((Double)f.getVar(op.args[1]))+((Double)f.getVar(op.args[2])));
@@ -223,7 +167,17 @@ public class Executor {
 				case GE:
 					f.putVar(op.args[0], ((Double)f.getVar(op.args[1])) >= ((Double)f.getVar(op.args[2])));
 					break;
+				case GOTO:
+					opn = jumpTo(code, op.args[0]);
+					break;
+				case GOTOIF:
+					if (toBool(f.getVar(op.args[0]))) {
+						opn = jumpTo(code, op.args[1]);
+					}
+					break;
 			}
+
+			System.out.println(opn);
 		}
 		return null;
 	}
@@ -238,17 +192,11 @@ public class Executor {
 		return ((ArrayList)lv).get(((Double)index).intValue());
 	}
 	
-	public int jumpOver(int i, ArrayList<Operation> code) {
-		int depth = 0;
-		for (int j=i+1;j<code.size();j++) {
-			Operation op = code.get(j);
-			if (op.op.isBlockStarter()) {
-				depth++;
-			} else if (op.op==OpType.ENDB) {
-				depth--;
-				if (depth<0) {
-					return j;
-				}
+	public int jumpTo(ArrayList<Operation> code, String label) {
+		for (int i=0;i<code.size();i++) {
+			Operation op = code.get(i);
+			if (op.op == OpType.LABEL && op.args[0].equals(label)) {
+				return i;
 			}
 		}
 		return -1;
