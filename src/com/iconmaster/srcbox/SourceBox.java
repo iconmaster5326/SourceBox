@@ -17,6 +17,7 @@ public class SourceBox extends Platform {
 		this.name = "SourceBox";
 		
 		this.registerLibrary(new LibraryCore());
+		this.registerLibrary(new LibraryMath());
 	}
 
 	@Override
