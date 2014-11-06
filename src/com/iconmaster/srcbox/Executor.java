@@ -170,10 +170,21 @@ public class Executor {
 				case GOTO:
 					opn = jumpTo(code, op.args[0]);
 					break;
-				case GOTOIF:
+				case GOTOT:
 					if (toBool(f.getVar(op.args[0]))) {
 						opn = jumpTo(code, op.args[1]);
 					}
+					break;
+				case GOTOF:
+					if (!toBool(f.getVar(op.args[0]))) {
+						opn = jumpTo(code, op.args[1]);
+					}
+					break;
+				case TRUE:
+					f.putVar(op.args[0], true);
+					break;
+				case FALSE:
+					f.putVar(op.args[0], false);
 					break;
 			}
 
