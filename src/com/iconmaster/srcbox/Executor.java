@@ -186,6 +186,12 @@ public class Executor {
 				case FALSE:
 					f.putVar(op.args[0], false);
 					break;
+				case RET:
+					if (op.args.length>0) {
+						return f.getVar(op.args[0]);
+					} else {
+						return null;
+					}
 			}
 
 			System.out.println(opn);
