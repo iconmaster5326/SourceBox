@@ -27,6 +27,15 @@ public class LibraryCore extends SourcePackage {
 		};
 		this.addFunction(fn);
 		
+		fn = Function.libraryFunction("print", new String[] {"item"}, new TypeDef[] {TypeDef.UNKNOWN}, null);
+		fn.getDirectives().add("append");
+		fn.onRun = (pkg,args)->{
+			Executor exc = (Executor) args[0];
+			exc.print(args[1]);
+			return null;
+		};
+		this.addFunction(fn);
+		
 		fn = Function.libraryFunction("range", new String[] {"begin","end"}, new TypeDef[] {TypeDef.REAL,TypeDef.REAL}, TypeDef.LIST);
 		fn.onRun = (pkg,args)->{
 			Executor exc = (Executor) args[0];

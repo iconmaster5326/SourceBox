@@ -253,4 +253,13 @@ public class Executor {
 		
 		output.println(o);
 	}
+
+	void print(Object o) {
+		if (output==null) {
+			setupOutput();
+		}
+		output.setVisible(true);
+		
+		output.printNoLn(o);
+	}
 }

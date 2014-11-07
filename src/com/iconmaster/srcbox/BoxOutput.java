@@ -15,6 +15,10 @@ public class BoxOutput extends javax.swing.JFrame {
 	public void println(Object o) {
 		textPane.setText(textPane.getText()+o+"\n");
 	}
+	
+	void printNoLn(Object o) {
+		textPane.setText(textPane.getText()+o);
+	}
 
 	/**
 	 * This method is called from within the constructor to initialize the form.
