@@ -38,6 +38,17 @@ public class LibraryCore extends SourcePackage {
 		};
 		this.addFunction(fn);
 		
+		fn = Function.libraryFunction("range", new String[] {"begin","end","step"}, new TypeDef[] {TypeDef.REAL,TypeDef.REAL,TypeDef.REAL}, TypeDef.LIST);
+		fn.onRun = (pkg,args)->{
+			Executor exc = (Executor) args[0];
+			ArrayList a = new ArrayList();
+			for (double i=(Double)args[1];i<=(Double)args[2];i+=(Double)args[3]) {
+				a.add(i);
+			}
+			return a;
+		};
+		this.addFunction(fn);
+		
 		fn = Function.libraryFunction("list.size", new String[] {"list"}, new TypeDef[] {TypeDef.LIST}, TypeDef.REAL);
 		fn.onRun = (pkg,args)->{
 			Executor exc = (Executor) args[0];
