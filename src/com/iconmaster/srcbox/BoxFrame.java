@@ -8,13 +8,15 @@ import java.util.HashMap;
  */
 public class BoxFrame {
 	public BoxFrame parent;
+	public Executor exc;
 	public HashMap<String,Object> vars = new HashMap<>();
 
-	public BoxFrame() {
-		
+	public BoxFrame(Executor exc) {
+		this.exc = exc;
 	}
 
-	public BoxFrame(BoxFrame parent) {
+	public BoxFrame(Executor exc, BoxFrame parent) {
+		this(exc);
 		this.parent = parent;
 	}
 	
@@ -23,11 +25,19 @@ public class BoxFrame {
 		if (v==null && parent!=null) {
 			return parent.getVar(name);
 		} else {
+			if (v==null) {
+				return exc.getField(name).value;
+			}
 			return v;
 		}
 	}
 	
 	public void putVar(String name, Object value) {
+		if (exc.pkg.getField(name)!=null) {
+			exc.setField(name, value);
+			return;
+		}
+		
 		if (getVar(name)==null) {
 			vars.put(name, value);
 		} else if (vars.get(name)!=null) {

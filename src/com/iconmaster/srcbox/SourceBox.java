@@ -45,6 +45,7 @@ public class SourceBox extends Platform {
 		}
 		
 		Executor exc = new Executor(pkg);
+		exc.initFields();
 		exc.execute(exc.GetMainFunction());
 	}
 

@@ -2,6 +2,7 @@ package com.iconmaster.srcbox;
 
 import com.iconmaster.source.compile.Operation;
 import com.iconmaster.source.compile.Operation.OpType;
+import com.iconmaster.source.prototype.Field;
 import com.iconmaster.source.prototype.Function;
 import com.iconmaster.source.prototype.SourcePackage;
 import com.iconmaster.source.util.Directives;
@@ -14,6 +15,8 @@ import java.util.Stack;
  */
 public class Executor {
 	public SourcePackage pkg;
+	
+	public ArrayList<BoxField> fields = new ArrayList<>();
 	
 	public Stack<Operation> loopBegins = new Stack<>();
 	
@@ -37,8 +40,22 @@ public class Executor {
 		return null;
 	}
 	
+	public void initFields() {
+		for (Field f : pkg.getFields()) {
+			if (f.getValue()!=null) {
+				execute(exprToFunction(f.getValue()));
+			}
+		}
+	}
+	
+	public static Function exprToFunction(ArrayList<Operation> code) {
+		Function fn = new Function("", new ArrayList<>(), null);
+		fn.setCompiled(code);
+		return fn;
+	}
+	
 	public Object execute(Function fn, Object... fargs) {
-		BoxFrame f = new BoxFrame();
+		BoxFrame f = new BoxFrame(this);
 		int argi = 0;
 		for (Object arg : fargs) {
 			f.putVar(fn.getArguments().get(argi).getName(), arg);
@@ -86,12 +103,11 @@ public class Executor {
 						Object res = fn2.onRun.run(pkg, args.toArray());
 						f.putVar(op.args[0], res);
 					} else {
-						Executor exc = new Executor(pkg);
 						ArrayList<Object> argList = new ArrayList<>();
 						for (int i=2;i<op.args.length;i++) {
 							argList.add(f.getVar(op.args[i]));
 						}
-						Object res = exc.execute(fn2, argList.toArray());
+						Object res = execute(fn2, argList.toArray());
 						f.putVar(op.args[0], res);
 					}
 					break;
@@ -106,7 +122,7 @@ public class Executor {
 				case DEF:
 					break;
 				case BEGIN:
-					f = new BoxFrame(f);
+					f = new BoxFrame(this,f);
 					break;
 				case END:
 					f = f.parent;
@@ -270,12 +286,43 @@ public class Executor {
 		output.println(o);
 	}
 
-	void print(Object o) {
+	public void print(Object o) {
 		if (output==null) {
 			setupOutput();
 		}
 		output.setVisible(true);
 		
 		output.printNoLn(o);
+	}
+	
+	public BoxField getField(String name) {
+		Field sf = pkg.getField(name);
+		if (sf!=null && sf.onRun!=null) {
+			return new BoxField(name, sf.onRun.run(pkg, true, this));
+		}
+		for (BoxField f : fields) {
+			if (f.name.equals(name)) {
+				return f;
+			}
+		}
+		BoxField f = new BoxField(name, null);
+		fields.add(f);
+		return f;
+	}
+	
+	public void setField(String name, Object value) {
+		Field sf = pkg.getField(name);
+		if (sf!=null && sf.onRun!=null) {
+			sf.onRun.run(pkg, false, this);
+			return;
+		}
+		for (BoxField f : fields) {
+			if (f.name.equals(name)) {
+				f.value = value;
+				return;
+			}
+		}
+		BoxField f = new BoxField(name, value);
+		fields.add(f);
 	}
 }
