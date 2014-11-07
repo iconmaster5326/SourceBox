@@ -1,5 +1,6 @@
 package com.iconmaster.srcbox;
 
+import com.iconmaster.source.prototype.Field;
 import com.iconmaster.source.prototype.Function;
 import com.iconmaster.source.prototype.SourcePackage;
 import com.iconmaster.source.prototype.TypeDef;
@@ -60,6 +61,17 @@ public class LibraryMath extends SourcePackage {
 			return Math.sqrt((Double) args[1]);
 		};
 		this.addFunction(fn);
-	}
 	
+		Field f = Field.libraryField("pi", TypeDef.REAL);
+		f.onRun = (pkg,isGet,args)->{
+			return Math.PI;
+		};
+		this.addField(f);
+		
+		f = Field.libraryField("e", TypeDef.REAL);
+		f.onRun = (pkg,isGet,args)->{
+			return Math.E;
+		};
+		this.addField(f);
+	}
 }
