@@ -14,7 +14,7 @@ import java.util.Stack;
  */
 public class Executor {
 	public SourcePackage pkg;
-	public BoxFrame f = new BoxFrame();
+	
 	public Stack<Operation> loopBegins = new Stack<>();
 	
 	public BoxOutput output;
@@ -37,7 +37,13 @@ public class Executor {
 		return null;
 	}
 	
-	public Object execute(Function fn) {
+	public Object execute(Function fn, Object... fargs) {
+		BoxFrame f = new BoxFrame();
+		int argi = 0;
+		for (Object arg : fargs) {
+			f.putVar(fn.getArguments().get(argi).getName(), arg);
+			argi++;
+		}
 		ArrayList<Operation> code = fn.getCode();
 		
 		for (int opn=0;opn<code.size();opn++) {
@@ -81,7 +87,11 @@ public class Executor {
 						f.putVar(op.args[0], res);
 					} else {
 						Executor exc = new Executor(pkg);
-						Object res = exc.execute(fn2);
+						ArrayList<Object> argList = new ArrayList<>();
+						for (int i=2;i<op.args.length;i++) {
+							argList.add(f.getVar(op.args[i]));
+						}
+						Object res = exc.execute(fn2, argList.toArray());
 						f.putVar(op.args[0], res);
 					}
 					break;
