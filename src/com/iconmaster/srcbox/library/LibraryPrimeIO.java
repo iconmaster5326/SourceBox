@@ -1,9 +1,11 @@
 package com.iconmaster.srcbox.library;
 
+import com.iconmaster.source.prototype.Field;
 import com.iconmaster.source.prototype.Function;
 import com.iconmaster.source.prototype.SourcePackage;
 import com.iconmaster.source.prototype.TypeDef;
 import com.iconmaster.srcbox.execute.Executor;
+import com.sun.glass.events.KeyEvent;
 import java.util.Random;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
@@ -59,5 +61,11 @@ public class LibraryPrimeIO extends SourcePackage {
 			return null;
 		};
 		this.addFunction(fn);
+		
+		Field f = Field.libraryField("key.esc", TypeDef.REAL);
+		f.onRun = (pkg,isGet,args)->{
+			return KeyEvent.VK_ESCAPE;
+		};
+		this.addField(f);
 	}
 }
