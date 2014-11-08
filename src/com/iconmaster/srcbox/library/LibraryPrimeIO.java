@@ -64,7 +64,7 @@ public class LibraryPrimeIO extends SourcePackage {
 		
 		Field f = Field.libraryField("key.esc", TypeDef.REAL);
 		f.onRun = (pkg,isGet,args)->{
-			return KeyEvent.VK_ESCAPE;
+			return (double) KeyEvent.VK_ESCAPE;
 		};
 		this.addField(f);
 	}
