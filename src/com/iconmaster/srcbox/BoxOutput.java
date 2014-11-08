@@ -32,6 +32,7 @@ public class BoxOutput extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         textPane = new javax.swing.JTextArea();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 formComponentResized(evt);

@@ -62,7 +62,7 @@ public class LibraryCore extends SourcePackage {
 		fn.onRun = (pkg,args)->{
 			Executor exc = (Executor) args[0];
 			
-			return ((ArrayList)args[1]).size();
+			return (double) ((ArrayList)args[1]).size();
 		};
 		this.addFunction(fn);
 		
