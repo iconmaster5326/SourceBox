@@ -112,7 +112,7 @@ public class LibraryCore extends SourcePackage {
 		
 		Field f = Field.libraryField("list.start", TypeDef.REAL);
 		f.onRun = (pkg,isGet,args)->{
-			return 0;
+			return 0d;
 		};
 		this.addField(f);
 	}
