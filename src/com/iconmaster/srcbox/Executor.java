@@ -275,9 +275,7 @@ public class Executor {
 		
 		output = new BoxOutput();
 		
-		java.awt.EventQueue.invokeLater(() -> {
-			output.setVisible(true);
-		});
+		output.setVisible(true);
 	}
 	
 	public void setupPrimeDrawOutput() {
@@ -305,9 +303,7 @@ public class Executor {
 		
 		pdo = new PrimeDrawOutput();
 		
-		java.awt.EventQueue.invokeLater(() -> {
-			pdo.setVisible(true);
-		});
+		pdo.setVisible(true);
 	}
 	
 	public void updatePrimeDraw() {
