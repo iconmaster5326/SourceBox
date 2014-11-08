@@ -1,9 +1,10 @@
 package com.iconmaster.srcbox.library;
 
-import com.iconmaster.srcbox.execute.Executor;
+import com.iconmaster.source.prototype.Field;
 import com.iconmaster.source.prototype.Function;
 import com.iconmaster.source.prototype.SourcePackage;
 import com.iconmaster.source.prototype.TypeDef;
+import com.iconmaster.srcbox.execute.Executor;
 import java.util.ArrayList;
 
 /**
@@ -86,6 +87,21 @@ public class LibraryCore extends SourcePackage {
 		};
 		this.addFunction(fn);
 		
+		fn = Function.libraryFunction("list.first", new String[] {"list"}, new TypeDef[] {TypeDef.LIST}, TypeDef.UNKNOWN);
+		fn.onRun = (pkg,args)->{
+			Executor exc = (Executor) args[0];
+			ArrayList a = (ArrayList) args[1];
+			return a.get(0);
+		};
+		this.addFunction(fn);
+		fn = Function.libraryFunction("list.last", new String[] {"list"}, new TypeDef[] {TypeDef.LIST}, TypeDef.UNKNOWN);
+		fn.onRun = (pkg,args)->{
+			Executor exc = (Executor) args[0];
+			ArrayList a = (ArrayList) args[1];
+			return a.get(a.size()-1);
+		};
+		this.addFunction(fn);
+		
 		fn = Function.libraryFunction("string._cast", new String[] {"item"}, new TypeDef[] {}, TypeDef.STRING);
 		fn.onRun = (pkg,args)->{
 			Executor exc = (Executor) args[0];
@@ -94,6 +110,11 @@ public class LibraryCore extends SourcePackage {
 		};
 		this.addFunction(fn);
 		
+		Field f = Field.libraryField("list.start", TypeDef.REAL);
+		f.onRun = (pkg,isGet,args)->{
+			return 0;
+		};
+		this.addField(f);
 	}
 	
 }
