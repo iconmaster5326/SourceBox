@@ -1,4 +1,4 @@
-package com.iconmaster.srcbox;
+package com.iconmaster.srcbox.gui;
 
 /**
  *
@@ -25,9 +25,7 @@ public class PrimeDrawOutput extends javax.swing.JFrame {
         jPanel1 = new PrimeDrawFrame();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(320, 240));
         setMinimumSize(new java.awt.Dimension(320, 240));
-        setPreferredSize(new java.awt.Dimension(320, 240));
         setResizable(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);

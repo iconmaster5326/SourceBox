@@ -1,4 +1,4 @@
-package com.iconmaster.srcbox;
+package com.iconmaster.srcbox.execute;
 
 import com.iconmaster.source.compile.Operation;
 import com.iconmaster.source.compile.Operation.OpType;
@@ -6,6 +6,8 @@ import com.iconmaster.source.prototype.Field;
 import com.iconmaster.source.prototype.Function;
 import com.iconmaster.source.prototype.SourcePackage;
 import com.iconmaster.source.util.Directives;
+import com.iconmaster.srcbox.gui.BoxOutput;
+import com.iconmaster.srcbox.gui.PrimeDrawOutput;
 import java.util.ArrayList;
 import java.util.Stack;
 

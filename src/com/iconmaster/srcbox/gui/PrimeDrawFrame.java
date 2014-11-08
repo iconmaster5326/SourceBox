@@ -1,5 +1,6 @@
-package com.iconmaster.srcbox;
+package com.iconmaster.srcbox.gui;
 
+import com.iconmaster.srcbox.library.LibraryPrimeDraw;
 import java.awt.Graphics;
 
 /**
