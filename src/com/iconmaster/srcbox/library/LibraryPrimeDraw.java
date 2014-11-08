@@ -1,11 +1,12 @@
 package com.iconmaster.srcbox.library;
 
-import com.iconmaster.srcbox.execute.Executor;
 import com.iconmaster.source.prototype.Field;
 import com.iconmaster.source.prototype.Function;
 import com.iconmaster.source.prototype.SourcePackage;
 import com.iconmaster.source.prototype.TypeDef;
+import com.iconmaster.srcbox.execute.Executor;
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 /**
@@ -72,7 +73,6 @@ public class LibraryPrimeDraw extends SourcePackage {
 		fn.onRun = (pkg,args)->{
 			Executor exc = (Executor) args[0];
 			Grob g = (Grob) args[1];
-			g.image.getGraphics().setColor(Color.BLACK);
 			g.image.getGraphics().drawString((String) args[2],((Double) args[3]).intValue(),((Double) args[4]).intValue());
 			exc.updatePrimeDraw();
 			return null;
@@ -83,7 +83,6 @@ public class LibraryPrimeDraw extends SourcePackage {
 		fn.onRun = (pkg,args)->{
 			Executor exc = (Executor) args[0];
 			Grob g = (Grob) args[1];
-			g.image.getGraphics().setColor(Color.BLACK);
 			g.image.getGraphics().drawString((String) args[2],((Double) args[3]).intValue(),((Double) args[4]).intValue());
 			exc.updatePrimeDraw();
 			return null;
@@ -94,8 +93,9 @@ public class LibraryPrimeDraw extends SourcePackage {
 		fn.onRun = (pkg,args)->{
 			Executor exc = (Executor) args[0];
 			Grob g = (Grob) args[1];
-			g.image.getGraphics().setColor((Color) args[2]);
-			g.image.getGraphics().fillRect(0, 0, g.w, g.h);
+			Graphics gr = g.image.getGraphics();
+			gr.setColor((Color) args[2]);
+			gr.fillRect(0, 0, g.w, g.h);
 			exc.updatePrimeDraw();
 			return null;
 		};
@@ -105,7 +105,6 @@ public class LibraryPrimeDraw extends SourcePackage {
 		fn.onRun = (pkg,args)->{
 			Executor exc = (Executor) args[0];
 			Grob g = (Grob) args[1];
-			g.image.getGraphics().setColor(Color.WHITE);
 			g.image.getGraphics().fillRect(0, 0, g.w, g.h);
 			exc.updatePrimeDraw();
 			return null;
@@ -121,7 +120,6 @@ public class LibraryPrimeDraw extends SourcePackage {
 		
 		Field f = Field.libraryField("screen", GROB_TYPE);
 		f.onRun = (pkg,isGet,args)->{
-			Executor exc = (Executor) args[0];
 			return screen;
 		};
 		this.addField(f);

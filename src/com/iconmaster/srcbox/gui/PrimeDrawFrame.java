@@ -39,6 +39,7 @@ public class PrimeDrawFrame extends javax.swing.JPanel {
 
 	@Override
 	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
 		g.drawImage(LibraryPrimeDraw.screen.image, 0, 0, null);
 	}
 	

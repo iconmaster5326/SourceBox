@@ -170,7 +170,6 @@ public class Executor {
 		if (pdo==null) {
 			setupPrimeDrawOutput();
 		}
-		
 		pdo.repaint();
 	}
 	
