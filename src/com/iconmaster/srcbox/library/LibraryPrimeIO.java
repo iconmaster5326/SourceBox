@@ -6,6 +6,7 @@ import com.iconmaster.source.prototype.TypeDef;
 import com.iconmaster.srcbox.execute.Executor;
 import java.util.Random;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 
 /**
  *
@@ -21,15 +22,14 @@ public class LibraryPrimeIO extends SourcePackage {
 			Executor exc = (Executor) args[0];
 			Double dmillis = ((Double)args[1])*1000;
 			long millis = dmillis.longValue();
-			exc.excStack.peek().wait = new Runnable() {
-				public long milli = millis;
+			final Timer timer = new Timer((int) millis, (e)->{
 				
-				@Override
-				public void run() {
-					milli--;
-					if (milli==0) {
-						exc.excStack.peek().wait = null;
-					}
+			});
+			timer.setRepeats(false);
+			timer.start();
+			exc.excStack.peek().wait = ()->{
+				if (!timer.isRunning()) {
+					exc.excStack.peek().wait = null;
 				}
 			};
 			return null;
