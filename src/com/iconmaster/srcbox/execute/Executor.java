@@ -1,11 +1,11 @@
 package com.iconmaster.srcbox.execute;
 
 import com.iconmaster.source.compile.Operation;
-import com.iconmaster.source.compile.Operation.OpType;
 import com.iconmaster.source.prototype.Field;
 import com.iconmaster.source.prototype.Function;
 import com.iconmaster.source.prototype.SourcePackage;
 import com.iconmaster.source.util.Directives;
+import com.iconmaster.srcbox.execute.FunctionExecutor.ExecResult;
 import com.iconmaster.srcbox.gui.BoxOutput;
 import com.iconmaster.srcbox.gui.PrimeDrawOutput;
 import java.util.ArrayList;
@@ -20,10 +20,10 @@ public class Executor {
 	
 	public ArrayList<BoxField> fields = new ArrayList<>();
 	
-	public Stack<Operation> loopBegins = new Stack<>();
-	
 	public BoxOutput output;
 	public PrimeDrawOutput pdo;
+	
+	public Stack<FunctionExecutor> excStack = new Stack<>();
 
 	public Executor(SourcePackage pkg) {
 		this.pkg = pkg;
@@ -57,175 +57,30 @@ public class Executor {
 		return fn;
 	}
 	
+	public void call(Function fn, Object... fargs) {
+		FunctionExecutor fexc = new FunctionExecutor(this, fn, fargs);
+		excStack.add(fexc);
+	}
+	
 	public Object execute(Function fn, Object... fargs) {
-		BoxFrame f = new BoxFrame(this);
-		int argi = 0;
-		for (Object arg : fargs) {
-			f.putVar(fn.getArguments().get(argi).getName(), arg);
-			argi++;
-		}
-		ArrayList<Operation> code = fn.getCode();
-		
-		for (int opn=0;opn<code.size();opn++) {
-			Operation op = code.get(opn);
-			switch (op.op) {
-				case MOV:
-					f.putVar(op.args[0], f.getVar(op.args[1]));
-					break;
-				case MOVN:
-					f.putVar(op.args[0], Double.parseDouble(op.args[1]));
-					break;
-				case MOVS:
-					f.putVar(op.args[0], op.args[1]);
-					break;
-				case MOVL:
-					ArrayList a = new ArrayList();
-					for (int i=1;i<op.args.length;i++) {
-						a.add(f.getVar(op.args[i]));
-					}
-					f.putVar(op.args[0], a);
-					break;
-				case MOVI:
-					Object lv = f.getVar(op.args[0]);
-					Object rv = f.getVar(op.args[1]);
-					ArrayList indices = new ArrayList();
-					for (int i=2;i<op.args.length;i++) {
-						indices.add(f.getVar(op.args[i]));
-					}
-					setIndex(lv, rv, indices);
-					break;
-				case CALL:
-					String name = op.args[1];
-					Function fn2 = pkg.getFunction(name);
-					if (fn2.onRun!=null) {
-						ArrayList args = new ArrayList();
-						for (int i=2;i<op.args.length;i++) {
-							args.add(f.getVar(op.args[i]));
-						}
-						args.add(0,this);
-						Object res = fn2.onRun.run(pkg, args.toArray());
-						f.putVar(op.args[0], res);
-					} else {
-						ArrayList<Object> argList = new ArrayList<>();
-						for (int i=2;i<op.args.length;i++) {
-							argList.add(f.getVar(op.args[i]));
-						}
-						Object res = execute(fn2, argList.toArray());
-						f.putVar(op.args[0], res);
-					}
-					break;
-				case INDEX:
-					lv = f.getVar(op.args[1]);
-					indices = new ArrayList();
-					for (int i=2;i<op.args.length;i++) {
-						indices.add(f.getVar(op.args[i]));
-					}
-					f.putVar(op.args[0], getIndex(lv, indices));
-					break;
-				case DEF:
-					break;
-				case BEGIN:
-					f = new BoxFrame(this,f);
-					break;
-				case END:
-					f = f.parent;
-					break;
-				case PROP:
-					break;
-				case NOP:
-					break;
-				case TYPE:
-					break;
-				case ADD:
-					f.putVar(op.args[0], ((Double)f.getVar(op.args[1]))+((Double)f.getVar(op.args[2])));
-					break;
-				case SUB:
-					f.putVar(op.args[0], ((Double)f.getVar(op.args[1]))-((Double)f.getVar(op.args[2])));
-					break;
-				case MUL:
-					f.putVar(op.args[0], ((Double)f.getVar(op.args[1]))*((Double)f.getVar(op.args[2])));
-					break;
-				case DIV:
-					f.putVar(op.args[0], ((Double)f.getVar(op.args[1]))/((Double)f.getVar(op.args[2])));
-					break;
-				case MOD:
-					f.putVar(op.args[0], ((Double)f.getVar(op.args[1]))%((Double)f.getVar(op.args[2])));
-					break;
-				case POW:
-					f.putVar(op.args[0], Math.pow(((Double)f.getVar(op.args[1])),((Double)f.getVar(op.args[2]))));
-					break;
-				case AND:
-					f.putVar(op.args[0], toBool(f.getVar(op.args[1])) && toBool(f.getVar(op.args[2])));
-					break;
-				case OR:
-					f.putVar(op.args[0], toBool(f.getVar(op.args[1])) || toBool(f.getVar(op.args[2])));
-					break;
-				case NOT:
-					f.putVar(op.args[0], !toBool(f.getVar(op.args[1])));
-					break;
-				case NEG:
-					f.putVar(op.args[0], -((Double)f.getVar(op.args[1])));
-					break;
-				case BAND:
-					break;
-				case BOR:
-					break;
-				case BNOT:
-					break;
-				case CONCAT:
-					StringBuilder sb = new StringBuilder();
-					sb.append(f.getVar(op.args[1]));
-					sb.append(f.getVar(op.args[2]));
-					f.putVar(op.args[0], sb.toString());
-					break;
-				case EQ:
-					f.putVar(op.args[0], (f.getVar(op.args[1])).equals(f.getVar(op.args[2])));
-					break;
-				case NEQ:
-					f.putVar(op.args[0], !(f.getVar(op.args[1])).equals(f.getVar(op.args[2])));
-					break;
-				case LT:
-					f.putVar(op.args[0], ((Double)f.getVar(op.args[1])) < ((Double)f.getVar(op.args[2])));
-					break;
-				case GT:
-					f.putVar(op.args[0], ((Double)f.getVar(op.args[1])) > ((Double)f.getVar(op.args[2])));
-					break;
-				case LE:
-					f.putVar(op.args[0], ((Double)f.getVar(op.args[1])) <= ((Double)f.getVar(op.args[2])));
-					break;
-				case GE:
-					f.putVar(op.args[0], ((Double)f.getVar(op.args[1])) >= ((Double)f.getVar(op.args[2])));
-					break;
-				case GOTO:
-					opn = jumpTo(code, op.args[0]);
-					break;
-				case GOTOT:
-					if (toBool(f.getVar(op.args[0]))) {
-						opn = jumpTo(code, op.args[1]);
-					}
-					break;
-				case GOTOF:
-					if (!toBool(f.getVar(op.args[0]))) {
-						opn = jumpTo(code, op.args[1]);
-					}
-					break;
-				case TRUE:
-					f.putVar(op.args[0], true);
-					break;
-				case FALSE:
-					f.putVar(op.args[0], false);
-					break;
-				case RET:
-					if (op.args.length>0) {
-						return f.getVar(op.args[0]);
-					} else {
-						return null;
-					}
+		call(fn, fargs);
+		while (true) {
+			ExecResult res = step();
+			if (res.done && excStack.isEmpty()) {
+				return res.value;
 			}
-
-			System.out.println(opn);
 		}
-		return null;
+	}
+
+	public ExecResult step() {
+		ExecResult res = excStack.peek().execute();
+		if (res.done) {
+			excStack.pop();
+			if (!excStack.isEmpty()) {
+				excStack.peek().returnResult = res.value;
+			}
+		}
+		return res;
 	}
 	
 	public void setIndex(Object lv, Object rv, ArrayList indices) {
@@ -236,16 +91,6 @@ public class Executor {
 	public Object getIndex(Object lv, ArrayList indices) {
 		Object index = indices.get(0);
 		return ((ArrayList)lv).get(((Double)index).intValue());
-	}
-	
-	public int jumpTo(ArrayList<Operation> code, String label) {
-		for (int i=0;i<code.size();i++) {
-			Operation op = code.get(i);
-			if (op.op == OpType.LABEL && op.args[0].equals(label)) {
-				return i;
-			}
-		}
-		return -1;
 	}
 	
 	public boolean toBool(Object o) {
