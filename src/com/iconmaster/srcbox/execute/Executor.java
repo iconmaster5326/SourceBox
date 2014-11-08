@@ -10,6 +10,7 @@ import com.iconmaster.srcbox.gui.BoxOutput;
 import com.iconmaster.srcbox.gui.PrimeDrawOutput;
 import java.util.ArrayList;
 import java.util.Stack;
+import javax.swing.Timer;
 
 /**
  *
@@ -70,6 +71,18 @@ public class Executor {
 				return res.value;
 			}
 		}
+	}
+	
+	public void executeConcurently(Function fn, Object... fargs) {
+		call(fn, fargs);
+		final Executor thisExc = this;
+		final Timer timer = new Timer(1, (e) -> {
+			ExecResult res = thisExc.step();
+			if (res.done && excStack.isEmpty()) {
+				((Timer)e.getSource()).stop();
+			}
+		});
+		timer.start();
 	}
 
 	public ExecResult step() {

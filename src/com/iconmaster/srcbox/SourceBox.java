@@ -1,14 +1,14 @@
 package com.iconmaster.srcbox;
 
-import com.iconmaster.srcbox.library.LibraryMath;
-import com.iconmaster.srcbox.library.LibraryPrimeIO;
-import com.iconmaster.srcbox.library.LibraryCore;
-import com.iconmaster.srcbox.library.LibraryPrimeDraw;
-import com.iconmaster.srcbox.execute.Executor;
 import com.iconmaster.source.compile.CompileUtils;
 import com.iconmaster.source.link.Platform;
 import com.iconmaster.source.link.platform.PlatformLoader.LoadedPlatform;
 import com.iconmaster.source.prototype.SourcePackage;
+import com.iconmaster.srcbox.execute.Executor;
+import com.iconmaster.srcbox.library.LibraryCore;
+import com.iconmaster.srcbox.library.LibraryMath;
+import com.iconmaster.srcbox.library.LibraryPrimeDraw;
+import com.iconmaster.srcbox.library.LibraryPrimeIO;
 
 /**
  *
@@ -48,7 +48,7 @@ public class SourceBox extends Platform {
 		
 		Executor exc = new Executor(pkg);
 		exc.initFields();
-		exc.execute(exc.GetMainFunction());
+		exc.executeConcurently(exc.GetMainFunction());
 	}
 
 }
