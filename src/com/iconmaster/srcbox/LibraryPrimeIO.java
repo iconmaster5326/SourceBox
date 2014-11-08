@@ -4,6 +4,8 @@ import com.iconmaster.source.prototype.Function;
 import com.iconmaster.source.prototype.SourcePackage;
 import com.iconmaster.source.prototype.TypeDef;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,7 +21,15 @@ public class LibraryPrimeIO extends SourcePackage {
 		fn.onRun = (pkg,args)->{
 			Executor exc = (Executor) args[0];
 			Double millis = ((Double)args[1])*1000;
-			
+			for (long i = 0;i<millis;i++) {
+				try {
+					Thread.sleep(1);
+					exc.updatePrimeDraw();
+					Thread.yield();
+				} catch (InterruptedException ex) {
+					Logger.getLogger(LibraryPrimeIO.class.getName()).log(Level.SEVERE, null, ex);
+				}
+			}
 			return null;
 		};
 		this.addFunction(fn);
@@ -27,7 +37,15 @@ public class LibraryPrimeIO extends SourcePackage {
 		fn = Function.libraryFunction("waitForInput", new String[] {}, new TypeDef[] {}, TypeDef.UNKNOWN);
 		fn.onRun = (pkg,args)->{
 			Executor exc = (Executor) args[0];
-			
+			for (long i = 0;i<2000;i++) {
+				try {
+					Thread.sleep(1);
+					exc.updatePrimeDraw();
+					Thread.yield();
+				} catch (InterruptedException ex) {
+					Logger.getLogger(LibraryPrimeIO.class.getName()).log(Level.SEVERE, null, ex);
+				}
+			}
 			return null;
 		};
 		this.addFunction(fn);
