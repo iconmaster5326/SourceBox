@@ -49,7 +49,6 @@ public class FunctionExecutor {
 			f.putVar(fn.getArguments().get(argi).getName(), arg);
 			argi++;
 		}
-		ArrayList<Operation> code = fn.getCode();
 	}
 	
 	public ExecResult execute() {
