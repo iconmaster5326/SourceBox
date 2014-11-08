@@ -3,7 +3,6 @@ package com.iconmaster.srcbox;
 import com.iconmaster.source.compile.CompileUtils;
 import com.iconmaster.source.link.Platform;
 import com.iconmaster.source.link.platform.PlatformLoader.LoadedPlatform;
-import com.iconmaster.source.prototype.Function;
 import com.iconmaster.source.prototype.SourcePackage;
 
 /**
@@ -37,12 +36,7 @@ public class SourceBox extends Platform {
 
 	@Override
 	public void run(SourcePackage pkg) {
-		for (Function fn : pkg.getFunctions()) {
-			if (fn.getCode()!=null) {
-				fn.setCompiled(CompileUtils.replaceWithGotos(pkg, fn.getCode()));
-				System.out.println(fn);
-			}
-		}
+		CompileUtils.transform(pkg, CompileUtils.gotoReplacer);
 		
 		Executor exc = new Executor(pkg);
 		exc.initFields();
