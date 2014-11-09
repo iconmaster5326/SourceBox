@@ -25,6 +25,8 @@ public class SourceBox extends Platform {
 		
 		this.registerLibrary(new LibraryPrimeDraw());
 		this.registerLibrary(new LibraryPrimeIO());
+		
+		transforms.add(CompileUtils.gotoReplacer);
 	}
 
 	@Override
@@ -44,8 +46,6 @@ public class SourceBox extends Platform {
 
 	@Override
 	public void run(SourcePackage pkg) {
-		CompileUtils.transform(pkg, CompileUtils.gotoReplacer);
-		
 		Executor exc = new Executor(pkg);
 		exc.initFields();
 		exc.executeConcurently(exc.GetMainFunction());
