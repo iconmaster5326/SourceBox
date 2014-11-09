@@ -53,7 +53,7 @@ public class LibraryPrimeDraw extends SourcePackage {
 		
 		this.addType(GROB_TYPE);
 		
-		Function fn = Function.libraryFunction("grob.width", new String[] {"g"}, new TypeDef[] {GROB_TYPE}, TypeDef.REAL);
+		Function fn = Function.libraryFunction("grob.width", new String[] {"g"}, new TypeDef[] {GROB_TYPE}, TypeDef.INT);
 		fn.onRun = (pkg,args)->{
 			Executor exc = (Executor) args[0];
 			
@@ -61,7 +61,7 @@ public class LibraryPrimeDraw extends SourcePackage {
 		};
 		this.addFunction(fn);
 		
-		fn = Function.libraryFunction("grob.height", new String[] {"g"}, new TypeDef[] {GROB_TYPE}, TypeDef.REAL);
+		fn = Function.libraryFunction("grob.height", new String[] {"g"}, new TypeDef[] {GROB_TYPE}, TypeDef.INT);
 		fn.onRun = (pkg,args)->{
 			Executor exc = (Executor) args[0];
 			
@@ -69,7 +69,7 @@ public class LibraryPrimeDraw extends SourcePackage {
 		};
 		this.addFunction(fn);
 		
-		fn = Function.libraryFunction("grob.drawString", new String[] {"g","text","x","y"}, new TypeDef[] {GROB_TYPE,TypeDef.STRING,TypeDef.REAL,TypeDef.REAL}, null);
+		fn = Function.libraryFunction("grob.drawString", new String[] {"g","text","x","y"}, new TypeDef[] {GROB_TYPE,TypeDef.STRING,TypeDef.INT,TypeDef.INT}, null);
 		fn.onRun = (pkg,args)->{
 			Executor exc = (Executor) args[0];
 			Grob g = (Grob) args[1];
@@ -81,7 +81,7 @@ public class LibraryPrimeDraw extends SourcePackage {
 		};
 		this.addFunction(fn);
 		
-		fn = Function.libraryFunction("grob.drawString", new String[] {"g","text","x","y","font"}, new TypeDef[] {GROB_TYPE,TypeDef.STRING,TypeDef.REAL,TypeDef.REAL,TypeDef.REAL}, null);
+		fn = Function.libraryFunction("grob.drawString", new String[] {"g","text","x","y","font"}, new TypeDef[] {GROB_TYPE,TypeDef.STRING,TypeDef.INT,TypeDef.INT,TypeDef.INT}, null);
 		fn.onRun = (pkg,args)->{
 			Executor exc = (Executor) args[0];
 			Grob g = (Grob) args[1];
@@ -93,7 +93,7 @@ public class LibraryPrimeDraw extends SourcePackage {
 		};
 		this.addFunction(fn);
 		
-		fn = Function.libraryFunction("grob.fill", new String[] {"g","color"}, new TypeDef[] {GROB_TYPE,TypeDef.REAL}, null);
+		fn = Function.libraryFunction("grob.fill", new String[] {"g","color"}, new TypeDef[] {GROB_TYPE,TypeDef.INT}, null);
 		fn.onRun = (pkg,args)->{
 			Executor exc = (Executor) args[0];
 			Grob g = (Grob) args[1];
@@ -115,7 +115,7 @@ public class LibraryPrimeDraw extends SourcePackage {
 		};
 		this.addFunction(fn);
 		
-		fn = Function.libraryFunction("rgb", new String[] {"r","g","b"}, new TypeDef[] {TypeDef.REAL,TypeDef.REAL,TypeDef.REAL}, TypeDef.REAL);
+		fn = Function.libraryFunction("rgb", new String[] {"r","g","b"}, new TypeDef[] {TypeDef.INT,TypeDef.INT,TypeDef.INT}, TypeDef.INT);
 		fn.onRun = (pkg,args)->{
 			Executor exc = (Executor) args[0];
 			return new Color(((Double) args[1]).intValue(),((Double) args[2]).intValue(),((Double) args[3]).intValue());

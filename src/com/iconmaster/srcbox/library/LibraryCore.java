@@ -144,9 +144,9 @@ public class LibraryCore extends SourcePackage {
 		};
 		this.addFunction(fn);
 		
-		Field f = Field.libraryField("list.start", TypeDef.REAL);
+		Field f = Field.libraryField("list.start", TypeDef.INT);
 		f.onRun = (pkg,isGet,args)->{
-			return 0d;
+			return 0;
 		};
 		this.addField(f);
 	}

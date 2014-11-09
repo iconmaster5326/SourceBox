@@ -10,8 +10,8 @@ import java.util.HashMap;
  */
 public class PrimeDrawOutput extends javax.swing.JFrame {
 	
-	public HashMap<Double,Boolean> keyMap = new HashMap<>();
-	public Double lastKey = 0d;
+	public HashMap<Integer,Boolean> keyMap = new HashMap<>();
+	public char lastKey = 0;
 	public boolean changed = false;
 
 	/**
@@ -28,16 +28,16 @@ public class PrimeDrawOutput extends javax.swing.JFrame {
 
 			@Override
 			public void keyPressed(KeyEvent e) {
-				keyMap.put((double) e.getKeyChar(), true);
+				keyMap.put(new Integer(e.getKeyChar()), true);
 				changed = true;
-				lastKey = (double) e.getKeyChar();
+				lastKey = e.getKeyChar();
 			}
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				keyMap.put((double) e.getKeyChar(), false);
+				keyMap.put(new Integer(e.getKeyChar()), false);
 				changed = true;
-				lastKey = (double) e.getKeyChar();
+				lastKey = e.getKeyChar();
 			}
 		});
 	}
