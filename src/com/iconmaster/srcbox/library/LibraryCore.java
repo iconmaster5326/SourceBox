@@ -20,6 +20,7 @@ public class LibraryCore extends SourcePackage {
 		this.addType(TypeDef.REAL);
 		this.addType(TypeDef.STRING);
 		this.addType(TypeDef.LIST);
+		this.addType(TypeDef.INT);
 		
 		Function fn = Function.libraryFunction("print", new String[] {"item"}, new TypeDef[] {TypeDef.UNKNOWN}, null);
 		fn.onRun = (pkg,args)->{
