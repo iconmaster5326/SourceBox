@@ -116,7 +116,7 @@ public class LibraryCore extends SourcePackage {
 		fn.onRun = (pkg,args)->{
 			Executor exc = (Executor) args[0];
 			
-			return null;
+			return Double.parseDouble((String) args[1]);
 		};
 		this.addFunction(fn);
 		
@@ -124,7 +124,23 @@ public class LibraryCore extends SourcePackage {
 		fn.onRun = (pkg,args)->{
 			Executor exc = (Executor) args[0];
 			
-			return null;
+			return ((Integer) args[1]).doubleValue();
+		};
+		this.addFunction(fn);
+
+		fn = Function.libraryFunction("int._cast", new String[] {"item"}, new TypeDef[] {TypeDef.STRING}, TypeDef.INT);
+		fn.onRun = (pkg,args)->{
+			Executor exc = (Executor) args[0];
+			
+			return Integer.parseInt((String) args[1]);
+		};
+		this.addFunction(fn);
+		
+		fn = Function.libraryFunction("int._cast", new String[] {"item"}, new TypeDef[] {TypeDef.REAL}, TypeDef.INT);
+		fn.onRun = (pkg,args)->{
+			Executor exc = (Executor) args[0];
+			
+			return ((Double) args[1]).intValue();
 		};
 		this.addFunction(fn);
 		
