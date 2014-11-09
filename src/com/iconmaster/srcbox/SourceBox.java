@@ -50,5 +50,4 @@ public class SourceBox extends Platform {
 		exc.initFields();
 		exc.executeConcurently(exc.GetMainFunction());
 	}
-
 }
