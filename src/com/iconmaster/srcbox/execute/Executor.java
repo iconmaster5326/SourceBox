@@ -98,16 +98,16 @@ public class Executor {
 	
 	public void setIndex(Object lv, Object rv, ArrayList indices) {
 		Object index = indices.get(0);
-		((ArrayList)lv).add(((Double)index).intValue(), rv);
+		((ArrayList)lv).add(((Number)index).intValue(), rv);
 	}
 	
 	public Object getIndex(Object lv, ArrayList indices) {
 		Object index = indices.get(0);
-		return ((ArrayList)lv).get(((Double)index).intValue());
+		return ((ArrayList)lv).get(((Number)index).intValue());
 	}
 	
 	public boolean toBool(Object o) {
-		return (o instanceof Double && !o.equals(0d)) || o.equals(true);
+		return (o instanceof Number && ((Number)o).doubleValue()!=0d) || o.equals(true);
 	}
 	
 	public void setupOutput() {

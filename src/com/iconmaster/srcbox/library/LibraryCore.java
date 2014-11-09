@@ -21,6 +21,7 @@ public class LibraryCore extends SourcePackage {
 		this.addType(TypeDef.STRING);
 		this.addType(TypeDef.LIST);
 		this.addType(TypeDef.INT);
+		this.addType(TypeDef.BOOLEAN);
 		
 		Function fn = Function.libraryFunction("print", new String[] {"item"}, new TypeDef[] {TypeDef.UNKNOWN}, null);
 		fn.onRun = (pkg,args)->{
@@ -103,11 +104,27 @@ public class LibraryCore extends SourcePackage {
 		};
 		this.addFunction(fn);
 		
-		fn = Function.libraryFunction("string._cast", new String[] {"item"}, new TypeDef[] {}, TypeDef.STRING);
+		fn = Function.libraryFunction("string._cast", new String[] {"item"}, new TypeDef[] {TypeDef.UNKNOWN}, TypeDef.STRING);
 		fn.onRun = (pkg,args)->{
 			Executor exc = (Executor) args[0];
 			
 			return String.valueOf(args[1]);
+		};
+		this.addFunction(fn);
+		
+		fn = Function.libraryFunction("real._cast", new String[] {"item"}, new TypeDef[] {TypeDef.STRING}, TypeDef.REAL);
+		fn.onRun = (pkg,args)->{
+			Executor exc = (Executor) args[0];
+			
+			return null;
+		};
+		this.addFunction(fn);
+		
+		fn = Function.libraryFunction("real._cast", new String[] {"item"}, new TypeDef[] {TypeDef.INT}, TypeDef.REAL);
+		fn.onRun = (pkg,args)->{
+			Executor exc = (Executor) args[0];
+			
+			return null;
 		};
 		this.addFunction(fn);
 		

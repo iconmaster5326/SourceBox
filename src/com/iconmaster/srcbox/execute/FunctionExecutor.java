@@ -3,6 +3,7 @@ package com.iconmaster.srcbox.execute;
 import com.iconmaster.source.compile.Operation;
 import com.iconmaster.source.prototype.Function;
 import com.iconmaster.source.prototype.SourcePackage;
+import com.iconmaster.source.util.ElementHelper;
 import java.util.ArrayList;
 
 /**
@@ -70,7 +71,16 @@ public class FunctionExecutor {
 				f.putVar(op.args[0], f.getVar(op.args[1]));
 				break;
 			case MOVN:
-				f.putVar(op.args[0], Double.parseDouble(op.args[1]));
+				Number n;
+				if (ElementHelper.isReal(op.args[1])) {
+					if (op.args[1].endsWith(".")) {
+						op.args[1]+="0";
+					}
+					n = Double.parseDouble(op.args[1]);
+				} else {
+					n = Integer.parseInt(op.args[1]);
+				}
+				f.putVar(op.args[0], n);
 				break;
 			case MOVS:
 				f.putVar(op.args[0], op.args[1]);
@@ -134,22 +144,58 @@ public class FunctionExecutor {
 			case TYPE:
 				break;
 			case ADD:
-				f.putVar(op.args[0], ((Double)f.getVar(op.args[1]))+((Double)f.getVar(op.args[2])));
+				Object v1 = f.getVar(op.args[1]);
+				Object v2 = f.getVar(op.args[2]);
+				if (v1 instanceof Integer) {
+					f.putVar(op.args[0], ((Number)f.getVar(op.args[1])).intValue()+((Number)f.getVar(op.args[2])).intValue());
+				} else if (v1 instanceof Double) {
+					f.putVar(op.args[0], ((Number)f.getVar(op.args[1])).doubleValue()+((Number)f.getVar(op.args[2])).doubleValue());
+				}
 				break;
 			case SUB:
-				f.putVar(op.args[0], ((Double)f.getVar(op.args[1]))-((Double)f.getVar(op.args[2])));
+				v1 = f.getVar(op.args[1]);
+				v2 = f.getVar(op.args[2]);
+				if (v1 instanceof Integer) {
+					f.putVar(op.args[0], ((Number)f.getVar(op.args[1])).intValue()-((Number)f.getVar(op.args[2])).intValue());
+				} else if (v1 instanceof Double) {
+					f.putVar(op.args[0], ((Number)f.getVar(op.args[1])).doubleValue()-((Number)f.getVar(op.args[2])).doubleValue());
+				}
 				break;
 			case MUL:
-				f.putVar(op.args[0], ((Double)f.getVar(op.args[1]))*((Double)f.getVar(op.args[2])));
+				v1 = f.getVar(op.args[1]);
+				v2 = f.getVar(op.args[2]);
+				if (v1 instanceof Integer) {
+					f.putVar(op.args[0], ((Number)f.getVar(op.args[1])).intValue()*((Number)f.getVar(op.args[2])).intValue());
+				} else if (v1 instanceof Double) {
+					f.putVar(op.args[0], ((Number)f.getVar(op.args[1])).doubleValue()*((Number)f.getVar(op.args[2])).doubleValue());
+				}
 				break;
 			case DIV:
-				f.putVar(op.args[0], ((Double)f.getVar(op.args[1]))/((Double)f.getVar(op.args[2])));
+				v1 = f.getVar(op.args[1]);
+				v2 = f.getVar(op.args[2]);
+				if (v1 instanceof Integer) {
+					f.putVar(op.args[0], ((Number)f.getVar(op.args[1])).intValue()/((Number)f.getVar(op.args[2])).intValue());
+				} else if (v1 instanceof Double) {
+					f.putVar(op.args[0], ((Number)f.getVar(op.args[1])).doubleValue()/((Number)f.getVar(op.args[2])).doubleValue());
+				}
 				break;
 			case MOD:
-				f.putVar(op.args[0], ((Double)f.getVar(op.args[1]))%((Double)f.getVar(op.args[2])));
+				v1 = f.getVar(op.args[1]);
+				v2 = f.getVar(op.args[2]);
+				if (v1 instanceof Integer) {
+					f.putVar(op.args[0], ((Number)f.getVar(op.args[1])).intValue()%((Number)f.getVar(op.args[2])).intValue());
+				} else if (v1 instanceof Double) {
+					f.putVar(op.args[0], ((Number)f.getVar(op.args[1])).doubleValue()%((Number)f.getVar(op.args[2])).doubleValue());
+				}
 				break;
 			case POW:
-				f.putVar(op.args[0], Math.pow(((Double)f.getVar(op.args[1])),((Double)f.getVar(op.args[2]))));
+				v1 = f.getVar(op.args[1]);
+				v2 = f.getVar(op.args[2]);
+				if (v1 instanceof Integer) {
+					f.putVar(op.args[0], Math.pow(((Number)f.getVar(op.args[1])).intValue(),((Number)f.getVar(op.args[2])).intValue()));
+				} else if (v1 instanceof Double) {
+					f.putVar(op.args[0], Math.pow(((Number)f.getVar(op.args[1])).doubleValue(),((Number)f.getVar(op.args[2])).doubleValue()));
+				}
 				break;
 			case AND:
 				f.putVar(op.args[0], exc.toBool(f.getVar(op.args[1])) && exc.toBool(f.getVar(op.args[2])));
@@ -161,7 +207,12 @@ public class FunctionExecutor {
 				f.putVar(op.args[0], !exc.toBool(f.getVar(op.args[1])));
 				break;
 			case NEG:
-				f.putVar(op.args[0], -((Double)f.getVar(op.args[1])));
+				v1 = f.getVar(op.args[1]);
+				if (v1 instanceof Integer) {
+					f.putVar(op.args[0], -((Integer)f.getVar(op.args[1])));
+				} else if (v1 instanceof Double) {
+					f.putVar(op.args[0], -((Double)f.getVar(op.args[1])));
+				}
 				break;
 			case BAND:
 				break;
