@@ -75,7 +75,7 @@ public class LibraryPrimeDraw extends SourcePackage {
 			Grob g = (Grob) args[1];
 			Graphics gr = g.image.getGraphics();
 			gr.setColor(Color.BLACK);
-			gr.drawString((String) args[2],((Double) args[3]).intValue(),((Double) args[4]).intValue());
+			gr.drawString(String.valueOf(args[2]),((Number) args[3]).intValue(),((Number) args[4]).intValue());
 			exc.updatePrimeDraw();
 			return null;
 		};
@@ -87,7 +87,7 @@ public class LibraryPrimeDraw extends SourcePackage {
 			Grob g = (Grob) args[1];
 			Graphics gr = g.image.getGraphics();
 			gr.setColor(Color.BLACK);
-			gr.drawString((String) args[2],((Double) args[3]).intValue(),((Double) args[4]).intValue());
+			gr.drawString(String.valueOf(args[2]),((Number) args[3]).intValue(),((Number) args[4]).intValue());
 			exc.updatePrimeDraw();
 			return null;
 		};
@@ -118,7 +118,7 @@ public class LibraryPrimeDraw extends SourcePackage {
 		fn = Function.libraryFunction("rgb", new String[] {"r","g","b"}, new TypeDef[] {TypeDef.INT,TypeDef.INT,TypeDef.INT}, TypeDef.INT);
 		fn.onRun = (pkg,args)->{
 			Executor exc = (Executor) args[0];
-			return new Color(((Double) args[1]).intValue(),((Double) args[2]).intValue(),((Double) args[3]).intValue());
+			return new Color(((Number) args[1]).intValue(),((Number) args[2]).intValue(),((Number) args[3]).intValue());
 		};
 		this.addFunction(fn);
 		
