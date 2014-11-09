@@ -233,16 +233,39 @@ public class FunctionExecutor {
 				f.putVar(op.args[0], !(f.getVar(op.args[1])).equals(f.getVar(op.args[2])));
 				break;
 			case LT:
-				f.putVar(op.args[0], ((Double)f.getVar(op.args[1])) < ((Double)f.getVar(op.args[2])));
+				v1 = f.getVar(op.args[1]);
+				v2 = f.getVar(op.args[2]);
+				if (v1 instanceof Integer) {
+					f.putVar(op.args[0], ((Number)f.getVar(op.args[1])).intValue()<((Number)f.getVar(op.args[2])).intValue());
+				} else if (v1 instanceof Double) {
+					f.putVar(op.args[0], ((Number)f.getVar(op.args[1])).doubleValue()<((Number)f.getVar(op.args[2])).doubleValue());
+				}
 				break;
 			case GT:
-				f.putVar(op.args[0], ((Double)f.getVar(op.args[1])) > ((Double)f.getVar(op.args[2])));
-				break;
+				v1 = f.getVar(op.args[1]);
+				v2 = f.getVar(op.args[2]);
+				if (v1 instanceof Integer) {
+					f.putVar(op.args[0], ((Number)f.getVar(op.args[1])).intValue()>((Number)f.getVar(op.args[2])).intValue());
+				} else if (v1 instanceof Double) {
+					f.putVar(op.args[0], ((Number)f.getVar(op.args[1])).doubleValue()>((Number)f.getVar(op.args[2])).doubleValue());
+				}
 			case LE:
-				f.putVar(op.args[0], ((Double)f.getVar(op.args[1])) <= ((Double)f.getVar(op.args[2])));
+				v1 = f.getVar(op.args[1]);
+				v2 = f.getVar(op.args[2]);
+				if (v1 instanceof Integer) {
+					f.putVar(op.args[0], ((Number)f.getVar(op.args[1])).intValue()<=((Number)f.getVar(op.args[2])).intValue());
+				} else if (v1 instanceof Double) {
+					f.putVar(op.args[0], ((Number)f.getVar(op.args[1])).doubleValue()<=((Number)f.getVar(op.args[2])).doubleValue());
+				}
 				break;
 			case GE:
-				f.putVar(op.args[0], ((Double)f.getVar(op.args[1])) >= ((Double)f.getVar(op.args[2])));
+				v1 = f.getVar(op.args[1]);
+				v2 = f.getVar(op.args[2]);
+				if (v1 instanceof Integer) {
+					f.putVar(op.args[0], ((Number)f.getVar(op.args[1])).intValue()>=((Number)f.getVar(op.args[2])).intValue());
+				} else if (v1 instanceof Double) {
+					f.putVar(op.args[0], ((Number)f.getVar(op.args[1])).doubleValue()>=((Number)f.getVar(op.args[2])).doubleValue());
+				}
 				break;
 			case GOTO:
 				opn = jumpTo(code, op.args[0]);
