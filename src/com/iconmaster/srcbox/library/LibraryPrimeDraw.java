@@ -73,7 +73,9 @@ public class LibraryPrimeDraw extends SourcePackage {
 		fn.onRun = (pkg,args)->{
 			Executor exc = (Executor) args[0];
 			Grob g = (Grob) args[1];
-			g.image.getGraphics().drawString((String) args[2],((Double) args[3]).intValue(),((Double) args[4]).intValue());
+			Graphics gr = g.image.getGraphics();
+			gr.setColor(Color.BLACK);
+			gr.drawString((String) args[2],((Double) args[3]).intValue(),((Double) args[4]).intValue());
 			exc.updatePrimeDraw();
 			return null;
 		};
@@ -83,7 +85,9 @@ public class LibraryPrimeDraw extends SourcePackage {
 		fn.onRun = (pkg,args)->{
 			Executor exc = (Executor) args[0];
 			Grob g = (Grob) args[1];
-			g.image.getGraphics().drawString((String) args[2],((Double) args[3]).intValue(),((Double) args[4]).intValue());
+			Graphics gr = g.image.getGraphics();
+			gr.setColor(Color.BLACK);
+			gr.drawString((String) args[2],((Double) args[3]).intValue(),((Double) args[4]).intValue());
 			exc.updatePrimeDraw();
 			return null;
 		};

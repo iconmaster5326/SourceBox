@@ -1,16 +1,45 @@
 package com.iconmaster.srcbox.gui;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.HashMap;
+
 /**
  *
  * @author iconmaster
  */
 public class PrimeDrawOutput extends javax.swing.JFrame {
+	
+	public HashMap<Double,Boolean> keyMap = new HashMap<>();
+	public Double lastKey = 0d;
+	public boolean changed = false;
 
 	/**
 	 * Creates new form PrimeDrawOutput
 	 */
 	public PrimeDrawOutput() {
 		initComponents();
+		
+		this.addKeyListener(new KeyListener() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				keyMap.put((double) e.getKeyChar(), true);
+				changed = true;
+				lastKey = (double) e.getKeyChar();
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				keyMap.put((double) e.getKeyChar(), false);
+				changed = true;
+				lastKey = (double) e.getKeyChar();
+			}
+		});
 	}
 
 	/**

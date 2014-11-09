@@ -41,8 +41,13 @@ public class LibraryPrimeIO extends SourcePackage {
 		fn = Function.libraryFunction("waitForInput", new String[] {}, new TypeDef[] {}, TypeDef.UNKNOWN);
 		fn.onRun = (pkg,args)->{
 			Executor exc = (Executor) args[0];
-
-			return null;
+			exc.pdo.changed = false;
+			exc.excStack.peek().wait = ()->{
+				if (exc.pdo.changed) {
+					exc.excStack.peek().wait = null;
+				}
+			};
+			return exc.pdo.lastKey;
 		};
 		this.addFunction(fn);
 		
@@ -50,7 +55,11 @@ public class LibraryPrimeIO extends SourcePackage {
 		fn = Function.libraryFunction("isKeyDown", new String[] {"key"}, new TypeDef[] {TypeDef.REAL}, TypeDef.REAL);
 		fn.onRun = (pkg,args)->{
 			Executor exc = (Executor) args[0];
-			return r.nextDouble()<.2;
+			exc.updatePrimeDraw();
+			if (exc.pdo.keyMap.get(args[1])!= null && exc.pdo.keyMap.get(args[1])) {
+				return true;
+			}
+			return false;
 		};
 		this.addFunction(fn);
 		
