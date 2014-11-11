@@ -129,8 +129,6 @@ public class FunctionExecutor {
 				}
 				f.putVar(op.args[0], exc.getIndex(lv, indices));
 				break;
-			case DEF:
-				break;
 			case BEGIN:
 				f = new BoxFrame(exc,f);
 				break;
@@ -140,8 +138,6 @@ public class FunctionExecutor {
 			case PROP:
 				break;
 			case NOP:
-				break;
-			case TYPE:
 				break;
 			case ADD:
 				Object v1 = f.getVar(op.args[1]);
