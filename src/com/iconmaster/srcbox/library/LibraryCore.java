@@ -62,11 +62,11 @@ public class LibraryCore extends SourcePackage {
 		};
 		this.addFunction(fn);
 		
-		fn = Function.libraryFunction("list.size", new String[] {"list"}, new TypeDef[] {TypeDef.LIST}, TypeDef.REAL);
+		fn = Function.libraryFunction("list.size", new String[] {"list"}, new TypeDef[] {TypeDef.LIST}, TypeDef.INT);
 		fn.onRun = (pkg,args)->{
 			Executor exc = (Executor) args[0];
 			
-			return (double) ((ArrayList)args[1]).size();
+			return ((ArrayList)args[1]).size();
 		};
 		this.addFunction(fn);
 		
