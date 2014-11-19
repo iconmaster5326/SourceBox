@@ -3,7 +3,7 @@ package com.iconmaster.srcbox.execute;
 import com.iconmaster.source.compile.Operation;
 import com.iconmaster.source.prototype.Function;
 import com.iconmaster.source.prototype.SourcePackage;
-import com.iconmaster.source.util.ElementHelper;
+import com.iconmaster.source.util.StringUtils;
 import java.util.ArrayList;
 
 /**
@@ -72,7 +72,7 @@ public class FunctionExecutor {
 				break;
 			case MOVN:
 				Number n;
-				if (ElementHelper.isReal(op.args[1])) {
+				if (StringUtils.isReal(op.args[1])) {
 					if (op.args[1].endsWith(".")) {
 						op.args[1]+="0";
 					}

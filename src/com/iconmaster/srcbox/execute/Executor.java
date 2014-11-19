@@ -98,12 +98,12 @@ public class Executor {
 	
 	public void setIndex(Object lv, Object rv, ArrayList indices) {
 		Object index = indices.get(0);
-		((ArrayList)lv).add(((Number)index).intValue(), rv);
+		((ArrayList)lv).add(((Number)index).intValue()-1, rv);
 	}
 	
 	public Object getIndex(Object lv, ArrayList indices) {
 		Object index = indices.get(0);
-		return ((ArrayList)lv).get(((Number)index).intValue());
+		return ((ArrayList)lv).get(((Number)index).intValue()-1);
 	}
 	
 	public boolean toBool(Object o) {
