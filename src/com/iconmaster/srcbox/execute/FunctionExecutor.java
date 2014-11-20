@@ -66,6 +66,7 @@ public class FunctionExecutor {
 		}
 		Operation op = code.get(opn);
 		System.out.println("STEP: function "+fn.getName()+" I "+opn+" OP "+op);
+		System.out.println("\t"+f.vars);
 		switch (op.op) {
 			case MOV:
 				f.putVar(op.args[0], f.getVar(op.args[1]));
@@ -245,6 +246,7 @@ public class FunctionExecutor {
 				} else if (v1 instanceof Double) {
 					f.putVar(op.args[0], ((Number)f.getVar(op.args[1])).doubleValue()>((Number)f.getVar(op.args[2])).doubleValue());
 				}
+				break;
 			case LE:
 				v1 = f.getVar(op.args[1]);
 				v2 = f.getVar(op.args[2]);
