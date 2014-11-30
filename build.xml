@@ -10,6 +10,12 @@
 <project name="SourceBox" default="default" basedir=".">
     <description>Builds, tests, and runs the project SourceBox.</description>
     <import file="nbproject/build-impl.xml"/>
+	
+	<property environment="env"/>
+	<property file="build.properties"/>
+	<target name="-pre-compile">
+		<replace dir="${src.dir}" token="@VERSION@" value="${srcbox.version}.${env.BUILD_ID}"/>
+	</target>
     <!--
 
     There exist several targets which are by default empty and which can be 
