@@ -1,10 +1,10 @@
 package com.iconmaster.srcbox.library;
 
-import com.iconmaster.srcbox.execute.Executor;
 import com.iconmaster.source.prototype.Field;
 import com.iconmaster.source.prototype.Function;
 import com.iconmaster.source.prototype.SourcePackage;
 import com.iconmaster.source.prototype.TypeDef;
+import com.iconmaster.srcbox.execute.Executor;
 
 /**
  *
@@ -60,6 +60,14 @@ public class LibraryMath extends SourcePackage {
 			Executor exc = (Executor) args[0];
 			
 			return Math.sqrt((Double) args[1]);
+		};
+		this.addFunction(fn);
+		
+		fn = Function.libraryFunction("abs", new String[] {"n"}, new TypeDef[] {TypeDef.REAL}, TypeDef.REAL);
+		fn.onRun = (pkg,args)->{
+			Executor exc = (Executor) args[0];
+			
+			return Math.abs((Double) args[1]);
 		};
 		this.addFunction(fn);
 	
