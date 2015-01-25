@@ -193,9 +193,9 @@ public class Executor {
 	
 	public BoxField getField(String name) {
 		Field sf = pkg.getField(name);
-		if (sf!=null && sf.onRun!=null) {
-			return new BoxField(name, sf.onRun.run(pkg, true, this));
-		}
+//		if (sf!=null && sf.onRun!=null) {
+//			return new BoxField(name, sf.onRun.run(pkg, true, this));
+//		}
 		for (BoxField f : fields) {
 			if (f.name.equals(name)) {
 				return f;
@@ -208,10 +208,10 @@ public class Executor {
 	
 	public void setField(String name, Object value) {
 		Field sf = pkg.getField(name);
-		if (sf!=null && sf.onRun!=null) {
-			sf.onRun.run(pkg, false, this);
-			return;
-		}
+//		if (sf!=null && sf.onRun!=null) {
+//			sf.onRun.run(pkg, false, this);
+//			return;
+//		}
 		for (BoxField f : fields) {
 			if (f.name.equals(name)) {
 				f.value = value;
