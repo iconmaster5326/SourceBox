@@ -39,13 +39,16 @@ public class SourceBox extends Platform {
 
 	@Override
 	public Object run(SourcePackage pkg) {
-		VirtualMachine vm = new VirtualMachine(pkg);
-		Function main = SourceBoxCore.getMainFunction(pkg);
+		final VirtualMachine vm = new VirtualMachine(pkg);
+		final Function main = SourceBoxCore.getMainFunction(pkg);
 		if (main!=null) {
-			vm.outputStream = new BoxOutputStream();
-					
-			vm.loadFunction(main);
-			vm.run();
+			new Thread(() -> {
+				vm.outputStream = new BoxOutputStream();
+			}).start();
+			new Thread(() -> {
+				vm.loadFunction(main);
+				vm.run();
+			}).start();
 		}
 		return null;
 	}
