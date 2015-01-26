@@ -1,7 +1,6 @@
 package com.iconmaster.srcbox;
 
 import com.iconmaster.source.assemble.AssembledOutput;
-import com.iconmaster.source.compile.CompileUtils;
 import com.iconmaster.source.link.Platform;
 import com.iconmaster.source.link.platform.PlatformLoader.LoadedPlatform;
 import com.iconmaster.source.prototype.SourcePackage;
@@ -17,7 +16,7 @@ public class SourceBox extends Platform {
 	public SourceBox() {
 		this.name = "SourceBox";
 		
-		transforms.add(CompileUtils.gotoReplacer);
+		SourceBoxCore.registerLibs(this);
 	}
 
 	@Override
