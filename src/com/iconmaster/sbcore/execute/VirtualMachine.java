@@ -29,6 +29,11 @@ public class VirtualMachine {
 		done = false;
 	}
 	
+	public void loadExecutor(Executor e) {
+		execs.push(e);
+		done = false;
+	}
+	
 	public void step() {
 		if (!done) {
 			exec().step();
