@@ -2,6 +2,8 @@ package com.iconmaster.sbcore.execute;
 
 import com.iconmaster.source.prototype.Function;
 import com.iconmaster.source.prototype.SourcePackage;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Stack;
 
@@ -15,6 +17,10 @@ public class VirtualMachine {
 	public Stack<Executor> execs = new Stack<>();
 	public Executor last;
 	public boolean done = true;
+	
+	public OutputStream outputStream = System.out;
+	public InputStream inputStream = System.in;
+	public OutputStream errorStream = System.err;
 
 	public VirtualMachine(SourcePackage pkg) {
 		this.pkg = pkg;

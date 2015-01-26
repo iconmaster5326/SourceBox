@@ -4,6 +4,8 @@ import com.iconmaster.sbcore.execute.SourceObject;
 import com.iconmaster.sbcore.execute.VirtualMachine;
 import com.iconmaster.source.prototype.SourcePackage;
 import com.iconmaster.source.prototype.TypeDef;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 
 /**
  *
@@ -20,12 +22,20 @@ public class CoreFunctions {
 	
 	public static void registerFunctions(SourcePackage pkg) {
 		pkg.getFunction("core.print").data.put("onRun",(CustomFunction) (vm, args) -> {
-			System.out.println(args[0].data);
+			PrintWriter pw = new PrintWriter(vm.outputStream);
+			pw.println(args[0].data);
+			pw.flush();
 			return null;
 		});
 		
 		pkg.getIterator("core.range").data.put("onRun",(CustomIterator) (vm, args) -> {
-			return new SourceObject[][] {{new SourceObject(TypeDef.INT, 3)},{new SourceObject(TypeDef.INT, 2)}};
+			ArrayList<SourceObject[]> pairs = new ArrayList<>();
+			int begin = ((Number)args[0].data).intValue();
+			int end = ((Number)args[1].data).intValue();
+			for (int i=begin;i<=end;i++) {
+				pairs.add(new SourceObject[] {new SourceObject(TypeDef.INT, i)});
+			}
+			return pairs.toArray(new SourceObject[0][0]);
 		});
 	}
 }

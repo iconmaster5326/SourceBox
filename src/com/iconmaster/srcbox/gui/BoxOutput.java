@@ -1,4 +1,5 @@
 package com.iconmaster.srcbox.gui;
+
 /**
  *
  * @author iconmaster
@@ -12,11 +13,7 @@ public class BoxOutput extends javax.swing.JFrame {
 		initComponents();
 	}
 	
-	public void println(Object o) {
-		textPane.setText(textPane.getText()+o+"\n");
-	}
-	
-	public void printNoLn(Object o) {
+	public void print(char o) {
 		textPane.setText(textPane.getText()+o);
 	}
 

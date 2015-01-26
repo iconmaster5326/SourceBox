@@ -1,12 +1,13 @@
 package com.iconmaster.srcbox;
 
 import com.iconmaster.sbcore.SourceBoxCore;
+import com.iconmaster.sbcore.execute.VirtualMachine;
 import com.iconmaster.source.assemble.AssembledOutput;
 import com.iconmaster.source.link.Platform;
 import com.iconmaster.source.link.platform.PlatformLoader.LoadedPlatform;
 import com.iconmaster.source.prototype.Function;
 import com.iconmaster.source.prototype.SourcePackage;
-import com.iconmaster.sbcore.execute.VirtualMachine;
+import com.iconmaster.srcbox.gui.BoxOutputStream;
 
 /**
  *
@@ -41,6 +42,8 @@ public class SourceBox extends Platform {
 		VirtualMachine vm = new VirtualMachine(pkg);
 		Function main = SourceBoxCore.getMainFunction(pkg);
 		if (main!=null) {
+			vm.outputStream = new BoxOutputStream();
+					
 			vm.loadFunction(main);
 			vm.run();
 		}
