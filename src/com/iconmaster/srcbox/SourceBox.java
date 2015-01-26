@@ -1,11 +1,12 @@
 package com.iconmaster.srcbox;
 
+import com.iconmaster.sbcore.SourceBoxCore;
 import com.iconmaster.source.assemble.AssembledOutput;
 import com.iconmaster.source.link.Platform;
 import com.iconmaster.source.link.platform.PlatformLoader.LoadedPlatform;
 import com.iconmaster.source.prototype.Function;
 import com.iconmaster.source.prototype.SourcePackage;
-import com.iconmaster.srcbox.execute.VirtualMachine;
+import com.iconmaster.sbcore.execute.VirtualMachine;
 
 /**
  *
