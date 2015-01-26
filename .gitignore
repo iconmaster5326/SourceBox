@@ -1,5 +1,5 @@
 /build/
 /dist/
-/src/com/iconmaster/sbcore/
+#/src/com/iconmaster/sbcore/
 
 portjars.bat
