@@ -4,7 +4,6 @@ import com.iconmaster.source.assemble.AssembledOutput;
 import com.iconmaster.source.link.Platform;
 import com.iconmaster.source.link.platform.PlatformLoader.LoadedPlatform;
 import com.iconmaster.source.prototype.SourcePackage;
-import com.iconmaster.srcbox.execute.Executor;
 
 /**
  *
@@ -36,9 +35,6 @@ public class SourceBox extends Platform {
 
 	@Override
 	public Object run(SourcePackage pkg) {
-		Executor exc = new Executor(pkg);
-		exc.initFields();
-		exc.executeConcurently(exc.GetMainFunction());
 		return null;
 	}
 }
