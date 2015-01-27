@@ -46,6 +46,10 @@ public class FunctionExecutor extends Executor {
 
 	@Override
 	public void step() {
+		if (pc>=code.size()) {
+			done = true;
+			return;
+		}
 		Operation op = code.get(pc);
 		
 		if (inCall) {

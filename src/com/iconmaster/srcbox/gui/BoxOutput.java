@@ -1,5 +1,7 @@
 package com.iconmaster.srcbox.gui;
 
+import java.awt.Color;
+
 /**
  *
  * @author iconmaster
@@ -9,8 +11,12 @@ public class BoxOutput extends javax.swing.JFrame {
 	/**
 	 * Creates new form BoxOutput
 	 */
-	public BoxOutput() {
+	public BoxOutput(boolean isErr) {
 		initComponents();
+		
+		if (isErr) {
+			textPane.setForeground(Color.red);
+		}
 	}
 	
 	public void print(char o) {

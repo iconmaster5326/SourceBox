@@ -25,6 +25,10 @@ public class BlockHelper {
 	}
 	
 	public static ArrayList<Block> getBlocks(ArrayList<Operation> ops) {
+		if (ops==null) {
+			return new ArrayList<>();
+		}
+		
 		ArrayList<Block> a = new ArrayList<>();
 		
 		Stack<Block> s = new Stack<>();

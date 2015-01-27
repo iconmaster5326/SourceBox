@@ -43,7 +43,8 @@ public class SourceBox extends Platform {
 		final Function main = SourceBoxCore.getMainFunction(pkg);
 		if (main!=null) {
 			new Thread(() -> {
-				vm.outputStream = new BoxOutputStream();
+				vm.outputStream = new BoxOutputStream(false);
+				vm.errorStream = new BoxOutputStream(true);
 			}).start();
 			new Thread(() -> {
 				vm.loadFunction(main);

@@ -1,9 +1,11 @@
 package com.iconmaster.sbcore.execute;
 
+import com.iconmaster.sbcore.exception.SBError;
 import com.iconmaster.source.prototype.Function;
 import com.iconmaster.source.prototype.SourcePackage;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Stack;
 
@@ -21,6 +23,8 @@ public class VirtualMachine {
 	public OutputStream outputStream = System.out;
 	public InputStream inputStream = System.in;
 	public OutputStream errorStream = System.err;
+	
+	public SBError error;
 
 	public VirtualMachine(SourcePackage pkg) {
 		this.pkg = pkg;
@@ -46,6 +50,13 @@ public class VirtualMachine {
 			if (exec().done) {
 				ret();
 			}
+		}
+		if (error!=null) {
+			PrintWriter pw = new PrintWriter(errorStream);
+			pw.println("ERROR: ");
+			pw.println((error.range==null?"0~0":error.range)+": "+error.message);
+			pw.flush();
+			done = true;
 		}
 	}
 	
