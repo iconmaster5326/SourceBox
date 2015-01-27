@@ -21,7 +21,7 @@ public class LibraryCore extends SourcePackage {
 	
 	public static String[] MATH_OPS = new String[] {"_add","_sub","_mul","_div","_mod","_pow"};
 	public static String[] BIT_OPS = new String[] {"_bit_and","_bit_or"};
-	public static String[] BOOL_OPS = new String[] {"_eq","_neq","_lt","_gt","_le","_ge","_and","_or"};
+	public static String[] BOOL_OPS = new String[] {"_eq","_neq","_lt","_gt","_le","_ge"};
 	
 	public LibraryCore() {
 		this.name = "core";
@@ -104,7 +104,15 @@ public class LibraryCore extends SourcePackage {
 			this.addFunction(fn);
 		}
 		
-		fn = Function.libraryFunction("bool._not", new String[] {"a1"}, new Object[] {TypeDef.BOOLEAN}, TypeDef.BOOLEAN);
+		fn = Function.libraryFunction("bool._not", new String[] {"b"}, new Object[] {TypeDef.BOOLEAN}, TypeDef.BOOLEAN);
+		fn.getDirectives().add("pure");
+		this.addFunction(fn);
+		
+		fn = Function.libraryFunction("bool._and", new String[] {"b1","b2"}, new Object[] {TypeDef.BOOLEAN,TypeDef.BOOLEAN}, TypeDef.BOOLEAN);
+		fn.getDirectives().add("pure");
+		this.addFunction(fn);
+		
+		fn = Function.libraryFunction("bool._or", new String[] {"b1","b2"}, new Object[] {TypeDef.BOOLEAN,TypeDef.BOOLEAN}, TypeDef.BOOLEAN);
 		fn.getDirectives().add("pure");
 		this.addFunction(fn);
 		
