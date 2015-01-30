@@ -104,6 +104,17 @@ public class FunctionExecutor extends Executor {
 					return;
 				}
 				break;
+			case RAWEQ:
+				boolean eq;
+				if (getVar(op.args[1])==null && getVar(op.args[2])==null) {
+					eq = true;
+				} else if (getVar(op.args[1])==null || getVar(op.args[2])==null) {
+					eq = false;
+				} else {
+					eq = getVar(op.args[1]).data==getVar(op.args[2]).data;
+				}
+				setVar(op.args[0], new SourceObject(TypeDef.BOOLEAN, eq));
+				break;
 			case RET:
 				done = true;
 				if (op.args.length>0) {
