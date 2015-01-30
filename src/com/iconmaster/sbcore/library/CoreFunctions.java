@@ -739,35 +739,35 @@ public class CoreFunctions {
 		}
 		
 		{
-			Function fn = pkg.getFunction("core.int._bit_and");
+			Function fn = pkg.getFunction("core.int._band");
 			fn.data.put("onRun",(CustomFunction) (vm, args) -> {
 				if (!ExecUtils.checkType(vm, fn, args)) {return null;}
 				return new SourceObject(args[0].type, ((int)args[0].data)&((int)args[1].data));
 			});
 		}
 		{
-			Function fn = pkg.getFunction("core.int8._bit_and");
+			Function fn = pkg.getFunction("core.int8._band");
 			fn.data.put("onRun",(CustomFunction) (vm, args) -> {
 				if (!ExecUtils.checkType(vm, fn, args)) {return null;}
 				return new SourceObject(args[0].type, ((byte)args[0].data)&((byte)args[1].data));
 			});
 		}
 		{
-			Function fn = pkg.getFunction("core.int16._bit_and");
+			Function fn = pkg.getFunction("core.int16._band");
 			fn.data.put("onRun",(CustomFunction) (vm, args) -> {
 				if (!ExecUtils.checkType(vm, fn, args)) {return null;}
 				return new SourceObject(args[0].type, ((short)args[0].data)&((short)args[1].data));
 			});
 		}
 		{
-			Function fn = pkg.getFunction("core.int32._bit_and");
+			Function fn = pkg.getFunction("core.int32._band");
 			fn.data.put("onRun",(CustomFunction) (vm, args) -> {
 				if (!ExecUtils.checkType(vm, fn, args)) {return null;}
 				return new SourceObject(args[0].type, ((int)args[0].data)&((int)args[1].data));
 			});
 		}
 		{
-			Function fn = pkg.getFunction("core.int64._bit_and");
+			Function fn = pkg.getFunction("core.int64._band");
 			fn.data.put("onRun",(CustomFunction) (vm, args) -> {
 				if (!ExecUtils.checkType(vm, fn, args)) {return null;}
 				return new SourceObject(args[0].type, ((long)args[0].data)&((long)args[1].data));
@@ -775,35 +775,35 @@ public class CoreFunctions {
 		}
 		
 		{
-			Function fn = pkg.getFunction("core.int._bit_or");
+			Function fn = pkg.getFunction("core.int._bor");
 			fn.data.put("onRun",(CustomFunction) (vm, args) -> {
 				if (!ExecUtils.checkType(vm, fn, args)) {return null;}
 				return new SourceObject(args[0].type, ((int)args[0].data)|((int)args[1].data));
 			});
 		}
 		{
-			Function fn = pkg.getFunction("core.int8._bit_or");
+			Function fn = pkg.getFunction("core.int8._bor");
 			fn.data.put("onRun",(CustomFunction) (vm, args) -> {
 				if (!ExecUtils.checkType(vm, fn, args)) {return null;}
 				return new SourceObject(args[0].type, ((byte)args[0].data)|((byte)args[1].data));
 			});
 		}
 		{
-			Function fn = pkg.getFunction("core.int16._bit_or");
+			Function fn = pkg.getFunction("core.int16._bor");
 			fn.data.put("onRun",(CustomFunction) (vm, args) -> {
 				if (!ExecUtils.checkType(vm, fn, args)) {return null;}
 				return new SourceObject(args[0].type, ((short)args[0].data)|((short)args[1].data));
 			});
 		}
 		{
-			Function fn = pkg.getFunction("core.int32._bit_or");
+			Function fn = pkg.getFunction("core.int32._bor");
 			fn.data.put("onRun",(CustomFunction) (vm, args) -> {
 				if (!ExecUtils.checkType(vm, fn, args)) {return null;}
 				return new SourceObject(args[0].type, ((int)args[0].data)|((int)args[1].data));
 			});
 		}
 		{
-			Function fn = pkg.getFunction("core.int64._bit_or");
+			Function fn = pkg.getFunction("core.int64._bor");
 			fn.data.put("onRun",(CustomFunction) (vm, args) -> {
 				if (!ExecUtils.checkType(vm, fn, args)) {return null;}
 				return new SourceObject(args[0].type, ((long)args[0].data)|((long)args[1].data));
@@ -811,35 +811,35 @@ public class CoreFunctions {
 		}
 		
 		{
-			Function fn = pkg.getFunction("core.int._bit_not");
+			Function fn = pkg.getFunction("core.int._bnot");
 			fn.data.put("onRun",(CustomFunction) (vm, args) -> {
 				if (!ExecUtils.checkType(vm, fn, args)) {return null;}
 				return new SourceObject(args[0].type, ~((int)args[0].data));
 			});
 		}
 		{
-			Function fn = pkg.getFunction("core.int8._bit_not");
+			Function fn = pkg.getFunction("core.int8._bnot");
 			fn.data.put("onRun",(CustomFunction) (vm, args) -> {
 				if (!ExecUtils.checkType(vm, fn, args)) {return null;}
 				return new SourceObject(args[0].type, ~((byte)args[0].data));
 			});
 		}
 		{
-			Function fn = pkg.getFunction("core.int16._bit_not");
+			Function fn = pkg.getFunction("core.int16._bnot");
 			fn.data.put("onRun",(CustomFunction) (vm, args) -> {
 				if (!ExecUtils.checkType(vm, fn, args)) {return null;}
 				return new SourceObject(args[0].type, ~((short)args[0].data));
 			});
 		}
 		{
-			Function fn = pkg.getFunction("core.int32._bit_not");
+			Function fn = pkg.getFunction("core.int32._bnot");
 			fn.data.put("onRun",(CustomFunction) (vm, args) -> {
 				if (!ExecUtils.checkType(vm, fn, args)) {return null;}
 				return new SourceObject(args[0].type, ~((int)args[0].data));
 			});
 		}
 		{
-			Function fn = pkg.getFunction("core.int64._bit_not");
+			Function fn = pkg.getFunction("core.int64._bnot");
 			fn.data.put("onRun",(CustomFunction) (vm, args) -> {
 				if (!ExecUtils.checkType(vm, fn, args)) {return null;}
 				return new SourceObject(args[0].type, ~((long)args[0].data));
