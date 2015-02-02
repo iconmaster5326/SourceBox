@@ -24,6 +24,8 @@ public class CoreFunctions {
 	
 	public static void registerFunctions(SourcePackage pkg) {
 		pkg.getFunction("core.print").data.put("onRun",(CustomFunction) (vm, args) -> {
+			if (args.length==0 || args[0]==null || args[0].data==null) {return null;}
+			if (args.length==0 || args[0].data==null) {return null;}
 			PrintWriter pw = new PrintWriter(vm.outputStream);
 			pw.println(args[0].data);
 			pw.flush();
@@ -807,6 +809,114 @@ public class CoreFunctions {
 			fn.data.put("onRun",(CustomFunction) (vm, args) -> {
 				if (!ExecUtils.checkType(vm, fn, args)) {return null;}
 				return new SourceObject(args[0].type, ((long)args[0].data)|((long)args[1].data));
+			});
+		}
+		
+		{
+			Function fn = pkg.getFunction("core.int._sll");
+			fn.data.put("onRun",(CustomFunction) (vm, args) -> {
+				if (!ExecUtils.checkType(vm, fn, args)) {return null;}
+				return new SourceObject(args[0].type, ((int)args[0].data)<<((int)args[1].data));
+			});
+		}
+		{
+			Function fn = pkg.getFunction("core.int8._sll");
+			fn.data.put("onRun",(CustomFunction) (vm, args) -> {
+				if (!ExecUtils.checkType(vm, fn, args)) {return null;}
+				return new SourceObject(args[0].type, ((byte)args[0].data)<<((byte)args[1].data));
+			});
+		}
+		{
+			Function fn = pkg.getFunction("core.int16._sll");
+			fn.data.put("onRun",(CustomFunction) (vm, args) -> {
+				if (!ExecUtils.checkType(vm, fn, args)) {return null;}
+				return new SourceObject(args[0].type, ((short)args[0].data)<<((short)args[1].data));
+			});
+		}
+		{
+			Function fn = pkg.getFunction("core.int32._sll");
+			fn.data.put("onRun",(CustomFunction) (vm, args) -> {
+				if (!ExecUtils.checkType(vm, fn, args)) {return null;}
+				return new SourceObject(args[0].type, ((int)args[0].data)<<((int)args[1].data));
+			});
+		}
+		{
+			Function fn = pkg.getFunction("core.int64._sll");
+			fn.data.put("onRun",(CustomFunction) (vm, args) -> {
+				if (!ExecUtils.checkType(vm, fn, args)) {return null;}
+				return new SourceObject(args[0].type, ((long)args[0].data)<<((long)args[1].data));
+			});
+		}
+		
+		{
+			Function fn = pkg.getFunction("core.int._srl");
+			fn.data.put("onRun",(CustomFunction) (vm, args) -> {
+				if (!ExecUtils.checkType(vm, fn, args)) {return null;}
+				return new SourceObject(args[0].type, ((int)args[0].data)>>((int)args[1].data));
+			});
+		}
+		{
+			Function fn = pkg.getFunction("core.int8._srl");
+			fn.data.put("onRun",(CustomFunction) (vm, args) -> {
+				if (!ExecUtils.checkType(vm, fn, args)) {return null;}
+				return new SourceObject(args[0].type, ((byte)args[0].data)>>((byte)args[1].data));
+			});
+		}
+		{
+			Function fn = pkg.getFunction("core.int16._srl");
+			fn.data.put("onRun",(CustomFunction) (vm, args) -> {
+				if (!ExecUtils.checkType(vm, fn, args)) {return null;}
+				return new SourceObject(args[0].type, ((short)args[0].data)>>((short)args[1].data));
+			});
+		}
+		{
+			Function fn = pkg.getFunction("core.int32._srl");
+			fn.data.put("onRun",(CustomFunction) (vm, args) -> {
+				if (!ExecUtils.checkType(vm, fn, args)) {return null;}
+				return new SourceObject(args[0].type, ((int)args[0].data)>>((int)args[1].data));
+			});
+		}
+		{
+			Function fn = pkg.getFunction("core.int64._srl");
+			fn.data.put("onRun",(CustomFunction) (vm, args) -> {
+				if (!ExecUtils.checkType(vm, fn, args)) {return null;}
+				return new SourceObject(args[0].type, ((long)args[0].data)>>((long)args[1].data));
+			});
+		}
+		
+		{
+			Function fn = pkg.getFunction("core.int._sra");
+			fn.data.put("onRun",(CustomFunction) (vm, args) -> {
+				if (!ExecUtils.checkType(vm, fn, args)) {return null;}
+				return new SourceObject(args[0].type, ((int)args[0].data)>>>((int)args[1].data));
+			});
+		}
+		{
+			Function fn = pkg.getFunction("core.int8._sra");
+			fn.data.put("onRun",(CustomFunction) (vm, args) -> {
+				if (!ExecUtils.checkType(vm, fn, args)) {return null;}
+				return new SourceObject(args[0].type, ((byte)args[0].data)>>>((byte)args[1].data));
+			});
+		}
+		{
+			Function fn = pkg.getFunction("core.int16._sra");
+			fn.data.put("onRun",(CustomFunction) (vm, args) -> {
+				if (!ExecUtils.checkType(vm, fn, args)) {return null;}
+				return new SourceObject(args[0].type, ((short)args[0].data)>>>((short)args[1].data));
+			});
+		}
+		{
+			Function fn = pkg.getFunction("core.int32._sra");
+			fn.data.put("onRun",(CustomFunction) (vm, args) -> {
+				if (!ExecUtils.checkType(vm, fn, args)) {return null;}
+				return new SourceObject(args[0].type, ((int)args[0].data)>>>((int)args[1].data));
+			});
+		}
+		{
+			Function fn = pkg.getFunction("core.int64._sra");
+			fn.data.put("onRun",(CustomFunction) (vm, args) -> {
+				if (!ExecUtils.checkType(vm, fn, args)) {return null;}
+				return new SourceObject(args[0].type, ((long)args[0].data)>>>((long)args[1].data));
 			});
 		}
 		

@@ -1,11 +1,14 @@
 package com.iconmaster.sbcore.execute;
 
 import com.iconmaster.sbcore.exception.SBError;
+import com.iconmaster.source.compile.Expression;
+import com.iconmaster.source.prototype.Field;
 import com.iconmaster.source.prototype.Function;
 import com.iconmaster.source.prototype.SourcePackage;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Stack;
 
@@ -28,6 +31,17 @@ public class VirtualMachine {
 
 	public VirtualMachine(SourcePackage pkg) {
 		this.pkg = pkg;
+		
+		for (Field f : pkg.getFields()) {
+			if (f.getValue()!=null) {
+				Expression expr = f.getValue();
+				Function fn = new Function("%field", new ArrayList<>(), null);
+				fn.setCompiled(expr);
+				
+				loadFunction(fn);
+				run();
+			}
+		}
 	}
 	
 	public Executor exec() {
