@@ -74,6 +74,8 @@ public class FunctionExecutor extends Executor {
 					setVar(op.args[0], new SourceObject(op.type, Float.parseFloat(op.args[1])));
 				} else if (op.type==TypeDef.REAL64) {
 					setVar(op.args[0], new SourceObject(op.type, Double.parseDouble(op.args[1])));
+				} else if (op.type==TypeDef.CHAR) {
+					setVar(op.args[0], new SourceObject(op.type, Byte.parseByte(op.args[1])));
 				}
 				break;
 			case MOVS:
